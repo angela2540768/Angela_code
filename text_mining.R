@@ -1,123 +1,230 @@
 ### text mining ###
 
-## å…ˆå®‰è£å¥½å…¨éƒ¨éœ€è¦çš„å¥—ä»¶ ## 
-install.packages("jiebaR") ##æ­¤ç‚ºé€™æ¬¡æ–‡å­—æ¢å‹˜æœ€ä¸»è¦çš„å¥—ä»¶
+## ¥ı¦w¸Ë¦n¥ş³¡»İ­nªº®M¥ó ## 
+install.packages("jiebaR") ##¦¹¬°³o¦¸¤å¦r±´°É³Ì¥D­nªº®M¥ó
 install.packages("plyr")
 install.packages("stringr")
 install.packages("reshape2")
+install.packages("readxl")
+install.packages("data.table")
 
-
-## æ¯æ¬¡æ‰“é–‹ï¼²æ™‚ï¼Œéœ€è¦é‡æ–°libraryç›¸é—œå¥—ä»¶ ##
+## ¨C¦¸¥´¶}¢à®É¡A»İ­n­«·slibrary¬ÛÃö®M¥ó ##
 library(jiebaR)
 library(jiebaRD)
 library(plyr)
 library(stringr)
 library(reshape2)
 library(readxl)
+library(data.table)
 
-
-## ç”±æ–¼æˆ‘å€‘æ˜¯ä¸­æ–‡æ–‡å­—æ¢å‹˜ï¼Œå› æ­¤éœ€è¦æŠŠï¼²çš„é è¨­èªç³»æ”¹ç‚ºä¸­æ–‡ ##
-### æ›´æ”¹èªç³» change to chinese system ###
+## ¥Ñ©ó§Ú­Ì¬O¤¤¤å¤å¦r±´°É¡A¦]¦¹»İ­n§â¢àªº¹w³]»y¨t§ï¬°¤¤¤å ##
+### §ó§ï»y¨t change to chinese system ### for MAC iOS
 system("defaults write org.R-project.R force.LANG zh_TW.UTF-8")
 
+### §ó§ï»y¨t change to chinese system ### for windows
+Sys.getlocale(category = "LC_ALL")
+Sys.setlocale(category = "LC_ALL", locale = "cht")
 
 
-
-## ä»¥ä¸‹æ˜¯jiebaRå¥—ä»¶çš„æ–·è©æ¸¬è©¦ï¼Œæ¸¬è©¦å¥—ä»¶æœ¬èº«æ–·è©çš„æ•ˆæœ ##
+## ¥H¤U¬OjiebaR®M¥óªºÂ_µü´ú¸Õ¡A´ú¸Õ®M¥ó¥»¨­Â_µüªº®ÄªG ##
 ### example ###
-test <- worker() # å…ˆè¨­ç½®ä¸€å€‹worker
-test #å¯ä»¥çœ‹åˆ°å¥—ä»¶é»˜èªçš„ä¸€äº›è¨­ç½®å’Œå„å€‹è©å…¸çš„é è¨­å€¼ï¼Œå…¶ä¸­ï¼Œé‡è¦çš„ç‚ºstop_wordå’Œuser
-## ä»¥ä¸‹ç‚ºä¸‰ç¨®æ–·è©æ–¹æ³•ï¼Œä¸‰ç¨®æ–¹æ³•çš„çµæœæ˜¯ç›¸åŒçš„ï¼š
-test["æˆ‘ä»Šå¤©æ™šé¤åƒäº†ç‰›æ’"]
-test <= "æˆ‘ä»Šå¤©æ™šé¤åƒäº†ç‰›æ’"
-segment("æˆ‘ä»Šå¤©æ™šé¤åƒäº†ç‰›æ’",test)
-### æ¸¬è©¦çµæŸ ###
+test <- worker() # ¥ı³]¸m¤@­Óworker
+test #¥i¥H¬İ¨ì®M¥óÀq»{ªº¤@¨Ç³]¸m©M¦U­Óµü¨åªº¹w³]­È¡A¨ä¤¤¡A­«­nªº¬°stop_word©Muser
+## ¥H¤U¬°¤TºØÂ_µü¤èªk¡A¤TºØ¤èªkªºµ²ªG¬O¬Û¦Pªº¡G
+test["§Ú­Ì¤µ¤Ñ­n¶}·|"]
+test <= "§Ú­Ì¤µ¤Ñ­n¶}·|"
+segment("§Ú­Ì¤µ¤Ñ­n¶}·|",test)
+### ´ú¸Õµ²§ô ###
 ###########################################################
 
 
-### ä»¥ä¸‹å¯ä»¥çœ‹åˆ°è¾­å…¸ä»¥åŠå…¶è·¯å¾‘ ###
+### ¥H¤U¥i¥H¬İ¨ìÃã¨å¥H¤Î¨ä¸ô®| ###
 show_dictpath()
 dir(show_dictpath())
-### çœ‹è¾­å…¸å…§çš„è© ###
-scan(file="/Library/Frameworks/R.framework/Versions/3.3/Resources/library/jiebaRD/dict/user.dict.utf8", what=character(),nlines=50,sep='\n',encoding='utf-8',fileEncoding='utf-8')
+### ¬İÃã¨å¤ºªºµü ###
+scan(file="C:/Users/Angela/Documents/R/win-library/3.4/jiebaRD/dict/user.dict.utf8", what=character(),nlines=50,sep='\n',encoding='utf-8',fileEncoding='utf-8')
 #############################################################
 
 
 
-##### ä»¥ä¸‹é–‹å§‹ç‚ºè‘£ç›£äº‹å­¸ç¶“æ­·è³‡æ–™çš„æ•´ç† #####
+##### ¥H¤U¶}©l¬°¸³ºÊ¨Æ¾Ç¸g¾ú¸ê®Æªº¾ã²z #####
 
 
 ### import the data ###
-pondata <- read_excel("~/Desktop/pondata.xlsx")
+pondata <- read_excel("C:/patent/TEJ/TSE_origin.csv")
+pondata <- fread("C:/patent/TEJ/TSE_origin.csv")
+head(pondata)
+print(object.size(pondata), units = "Mb")
+names(pondata)
+director <- pondata[,c(1,2,3,133,134,136,137,139,140,146)] 
+rm(pondata)
+gc()
+write.csv(director,"C:/patent/TEJ/director_10vars.csv", na="")
+pondata <- director
+b_melt_c <- fread("C:/patent/TEJ/b_melt_c.csv")
+## ¦¹¸ê®Æ¤@¦@¦³637,669µ§¡A®É¶¡¥Ñ2006¦~¨ì2017¦~
+## ¥H¤H¬°³æ¦ì¡A°O¿ı¨ä¾Ç¸g¾ú¸ê®Æ 
 
-## æ­¤è³‡æ–™ä¸€å…±æœ‰637,669ç­†ï¼Œæ™‚é–“ç”±2006å¹´åˆ°2017å¹´
-## ä»¥äººç‚ºå–®ä½ï¼Œè¨˜éŒ„å…¶å­¸ç¶“æ­·è³‡æ–™ 
-
-## é¦–å…ˆï¼Œæª¢æŸ¥é‡è¤‡å€¼ï¼Œä¸¦ä¸”åˆªé™¤é‡è¤‡å€¼
+## ­º¥ı¡AÀË¬d­«½Æ­È¡A¨Ã¥B§R°£­«½Æ­È
 board <- pondata[!duplicated(pondata),] 
-## æœç„¶æœ‰é‡è¤‡å€¼ï¼Œå‰©ä¸‹630,777ç­†
+## ªGµM¦³­«½Æ­È¡A³Ñ¤U630,777µ§
 
-## æˆ‘å€‘ä¸»è¦çš„ç›®æ¨™æ˜¯geæ¬„ï¼Œè§€å¯Ÿåˆ°åŒä¸€æ ¼å­ä¸­æœƒæœ‰å…©å€‹ä»¥ä¸Šå­¸ç¶“æ­·ï¼Œå› æ­¤è¦å…ˆä½¿ç”¨str_splitå‰–é–‹
-## å†è·ŸåŸè³‡æ–™æª”åˆä½µ
-board2 <- as.data.frame(str_split(board$ge, pattern = "ã€", simplify = T))
+## §Ú­Ì¥D­nªº¥Ø¼Ğ¬OgeÄæ¡AÆ[¹î¨ì¦P¤@®æ¤l¤¤·|¦³¨â­Ó¥H¤W¾Ç¸g¾ú¡A¦]¦¹­n¥ı¨Ï¥Îstr_split­å¶}
+## ¦A¸ò­ì¸ê®ÆÀÉ¦X¨Ö
+board2 <- as.data.frame(str_split(board$ge, pattern = "¡B", simplify = T))
 board2$n <- 1:630777
 board$n <- 1:630777
 board <- merge(board, board2, by="n")
 rm(board2)
 board <- board[,-1]
 
-### åªç•™ä¸‹è¦åˆ†æçš„æ¬„ä½
+### ¥u¯d¤U­n¤ÀªRªºÄæ¦ì
 names(board)
-b_analysis <- board[,c(-1,-2,-3,-6,-7,-8,-9,-10)]
+b_analysis <- board[,c(-1,-2,-3,-5,-7,-8,-9,-10)]
 
-## é‡æ–°å‘½åæ¬„ä½ ##
+## ­«·s©R¦WÄæ¦ì ##
 names(b_analysis)
 names(b_analysis)[1] <- "date"
 names(b_analysis)[2] <- "name"
 
-## è¨­ç½®æ–°çš„æ¬„ä½ : year
+## ³]¸m·sªºÄæ¦ì : year
 b_analysis$year <- substr(b_analysis$date, start = 1, stop = 4)
 b_analysis <- b_analysis[,-1]
 
 
 
-## ç”¨ melt å°‡å¤šæ¬„è½‰æˆä¸€æ¬„ ##
+## ¥Î melt ±N¦hÄæÂà¦¨¤@Äæ ##
 b_melt <- melt(b_analysis, id.vars=c('name', 'year'),var='experience')
-b_melt <- b_melt[which(b_melt$value!=""),] ## æŠŠç©ºç™½åˆªé™¤
-b_melt <- b_melt[with(b_melt, order(year,name)),] ## é‡æ–°æ’åº
+b_melt <- b_melt[which(b_melt$value!=""),] ## §âªÅ¥Õ§R°£
+b_melt <- b_melt[with(b_melt, order(year,name)),] ## ­«·s±Æ§Ç
 b_melt <- b_melt[,-3]
 names(b_melt)[3] <- "exp"
 b_melt <- b_melt[!duplicated(b_melt),]
-write.csv(b_melt, "b_melt.csv", na="", fileEncoding = "big5") ## å…ˆå­˜æª”ï¼Œè¦æ³¨æ„ç·¨ç¢¼æ ¼å¼
+write.csv(b_melt, "b_melt.csv", na="", fileEncoding = "big5") ## ¥ı¦sÀÉ¡A­nª`·N½s½X®æ¦¡
 
-### çœ‹çœ‹å„å€‹åå­—æ¯å¹´å‡ºç¾æ¬¡æ•¸ ###
+## ¥Î¤£¤@¼Ëªº²Å¸¹©î: "/", "#" ##
+board2 <- as.data.frame(str_split(b_melt$exp, pattern = "/", simplify = T))
+board2$n <- 1:683405
+b_melt$n <- 1:683405
+b_melt_2 <- merge(b_melt, board2, by="n")
+b_melt_2 <- b_melt_2[,c(-1,-4)]
+b_melt_2 <- melt(b_melt_2, id.vars=c('name', 'year'),var='experience')
+b_melt_2 <- b_melt_2[which(b_melt_2$value!=""),]
+b_melt_2 <- b_melt_2[with(b_melt_2, order(year,name)),] ## ­«·s±Æ§Ç
+b_melt_2 <- b_melt_2[,-3]
+names(b_melt_2)[3] <- "exp"
+b_melt_2 <- b_melt_2[!duplicated(b_melt_2),]
+b_melt <- b_melt_2
+rm(b_melt_2,b_english)
+write.csv(b_melt_c, "C:/patent/TEJ/b_melt_c.csv", na="") ## ¥ı¦sÀÉ¡A­nª`·N½s½X®æ¦¡
+
+
+
+
+### ¬İ¬İ¦U­Ó¦W¦r¨C¦~¥X²{¦¸¼Æ ###
 namefreq <- ddply(b_melt, .(name, year), summarize, Freq=table(name))
 
+## §â¦³­^¤å¦rªº³¡¤À¬D¥X¨Ó ##
+b_english <- b_melt[grep("[A-Za-z]",b_melt$exp),]
+## ¦³68,761µ§¸ê®Æ¦³
 
-###### è³‡æ–™æ•´ç†çµæŸ #########
+
+
+
+###### ¸ê®Æ¾ã²zµ²§ô #########
 #############################################################
 
 
 
-####### ä»¥ä¸‹é–‹å§‹ç‚ºæ–·è© ########
+####### ¥H¤U¶}©l¬°Â_µü ########
 
-## å»ºç«‹æ–‡å­—æ¢å‹˜ç’°å¢ƒ ##
-b_parse <- worker() ## ç›®å‰å°šæœªåŠ å…¥userè‡ªå·±çš„è¾­å…¸
-user_parse <- worker(user="/Users/huangguanwen/user_utf8") ## add user dict.
+## «Ø¥ß¤å¦r±´°ÉÀô¹Ò ##
+b_parse <- worker() ## ¥Ø«e©|¥¼¥[¤Juser¦Û¤vªºÃã¨å
+user_parse <- worker(user="C:/patent/TEJ/user_dict.utf8") ## add user dict.
 
-## ä»¥ä¸‹ç‚ºæ–·è©ç¨‹åº ##
+## ¥H¤U¬°Â_µüµ{§Ç ##
 a <- list()
-for(i in 1:682490){
-  a[[i]] <- b_parse[b_melt[[i,"exp"]]]
+for(i in 1:616117){
+  a[[i]] <- user_parse[b_melt_c[[i,"exp"]]]
 }
-## æ–·è©å®Œ aç‚ºä¸€å€‹listæ ¼å¼
-## å¯ä»¥è®“æ–·è©çµæœè®Šæˆdata.frame
+## Â_µü§¹ a¬°¤@­Ólist®æ¦¡
+## ¥i¥HÅıÂ_µüµ²ªGÅÜ¦¨data.frame
 b_mining <- ldply(a, rbind)
 
-## äº¦å¯ä»¥è¨ˆç®—æ¯å€‹è©å‡ºç¾çš„é »ç‡å¤šå¯¡
+## ¥ç¥i¥H­pºâ¨C­Óµü¥X²{ªºÀW²v¦h¹è
 a_2 <- unlist(a)
 freq_list <- freq(a_2)
 
+## ¥[¤JuserªºÃã¨å ##
+c <- list()
+for(i in 1:616117){
+  c[[i]] <- user_parse[b_melt_c[[i,"exp"]]]
+}
+c_2 <- unlist(c)
+freq_list_2 <- freq(c_2)
 
+
+###############################################################
+write.csv(b_melt_c, "C:/patent/TEJ/b_melt_c_am.csv", na="") ## ©î¦r«á¦sÀÉ
+
+### ¶}©l°µ«áÄò³B²z
+#  ¥Ñ¬F©²³¡ªù§P§O¶}©l
+#  ·§©À: ¦pªG¦³²Å¦Xgov_name¸Ìªº¦rµü¡Adummy: "gov" <- 1
+gov_name <- read.csv("D:/Angela/TEJ/gov_name.csv",stringsAsFactors = F)
+b_melt_2 <- fread("D:/Angela/TEJ/b_melt_c_am.csv", header = T, stringsAsFactors = F)
+
+parse_melt <- function(data){
+  library(reshape2)
+  data$index <- 1:nrow(data)
+  data <- data[,4:31]
+  data <- melt(data, id.vars = "index")
+  data <- data[which(data$value!=""),]
+}
+
+library(reshape2)
+b_melt_2$index <- 1:616117
+test2 <- b_melt_2[,4:31]
+test3 <- melt(test2, id.vars = "index")
+test3 <- test3[which(test3$value!=""),]
+write.csv(test3,"D:/Angela/text_mining/director_melt.csv")
+
+table(nchar(gov_name$gov_name))
+gov_name1 <- gov_name[which(nchar(gov_name$gov_name)<=3),]
+gov_name2 <- gov_name[which(nchar(gov_name$gov_name)>=4 & nchar(gov_name$gov_name)<=6),]
+gov_name3 <- gov_name[which(nchar(gov_name$gov_name)>=7),]
+
+system.time(for(i in 1:nrow(test3)){
+  if(nchar(test3[i,3])<=3){
+    for(j in seq_along(gov_name1)){
+      if(test3[i,3]==gov_name1[j]){
+        test3[i,"gov"] <- 1
+        break
+      } else {
+        test3[i,"gov"] <- 0
+      }
+    }
+  } else if(nchar(test3[i, 3]>=4 & nchar(test3[i,3])<=6)){
+    for(k in seq_along(gov_name2)){
+      if(test3[i,3]==gov_name2[k]){
+        test3[i,"gov"] <- 1
+        break
+      } else {
+        test3[i, "gov"] <- 0
+      }
+    }
+  } else if(nchar(test3[i,3])>=7){
+    for(p in seq_along(gov_name3)){
+      if(test3[i,3]==gov_name3[p]){
+        test3[i,"gov"] <- 1
+        break
+      } else {
+        test3[i, "gov"] <- 0
+      }
+    }
+  }
+})
+
+
+save.image()
 
 
