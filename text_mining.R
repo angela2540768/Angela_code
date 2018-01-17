@@ -186,12 +186,16 @@ b_melt_2$index <- 1:616117
 test2 <- b_melt_2[,4:31]
 test3 <- melt(test2, id.vars = "index")
 test3 <- test3[which(test3$value!=""),]
-write.csv(test3,"D:/Angela/text_mining/director_melt.csv")
+write.csv(test3,"D:/Angela/text_mining/director_melt.csv",na="")
 
 table(nchar(gov_name$gov_name))
 gov_name1 <- gov_name[which(nchar(gov_name$gov_name)<=3),]
 gov_name2 <- gov_name[which(nchar(gov_name$gov_name)>=4 & nchar(gov_name$gov_name)<=6),]
 gov_name3 <- gov_name[which(nchar(gov_name$gov_name)>=7),]
+write.csv(gov_name1, "D:/Angela/text_mining/gov_name1.csv",na="")
+write.csv(gov_name2, "D:/Angela/text_mining/gov_name2.csv",na="")
+write.csv(gov_name3, "D:/Angela/text_mining/gov_name3.csv",na="")
+
 
 system.time(for(i in 1:nrow(test3)){
   if(nchar(test3[i,3])<=3){
