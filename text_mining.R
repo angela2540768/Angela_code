@@ -173,20 +173,32 @@ write.csv(b_melt_c, "C:/patent/TEJ/b_melt_c_am.csv", na="") ## 拆字後存檔
 gov_name <- read.csv("D:/Angela/TEJ/gov_name.csv",stringsAsFactors = F)
 b_melt_2 <- fread("D:/Angela/TEJ/b_melt_c_am.csv", header = T, stringsAsFactors = F)
 
-parse_melt <- function(data){
-  library(reshape2)
-  data$index <- 1:nrow(data)
-  data <- data[,4:31]
-  data <- melt(data, id.vars = "index")
-  data <- data[which(data$value!=""),]
-}
+## 不一樣的方法需要的時間不同
 
+# 方法1:
+# 雙迴圈直接判斷
+for(i in 1:616117){
+  for(j in 1:209){
+    if(b_melt_2[i,4:31]==gov_name[j]){
+      b_melt_2[i,"gov"] <- 1
+      break
+    } else {
+      b_melt_2[i,"gov"] <- 0
+    }
+  }
+}
+# 效率最慢: 估計3天
+
+# 方法2:
+# 方法1裡面空格也會下去跑，浪費時間
+# 可以把字拆開分組，寫判斷式分群
 library(reshape2)
 b_melt_2$index <- 1:616117
 test2 <- b_melt_2[,4:31]
 test3 <- melt(test2, id.vars = "index")
 test3 <- test3[which(test3$value!=""),]
 write.csv(test3,"D:/Angela/text_mining/director_melt.csv",na="")
+test4 <- split(test3, 1:200)
 
 table(nchar(gov_name$gov_name))
 gov_name1 <- gov_name[which(nchar(gov_name$gov_name)<=3),]
@@ -196,39 +208,58 @@ write.csv(gov_name1, "D:/Angela/text_mining/gov_name1.csv",na="")
 write.csv(gov_name2, "D:/Angela/text_mining/gov_name2.csv",na="")
 write.csv(gov_name3, "D:/Angela/text_mining/gov_name3.csv",na="")
 
-
-system.time(for(i in 1:nrow(test3)){
-  if(nchar(test3[i,3])<=3){
-    for(j in seq_along(gov_name1)){
-      if(test3[i,3]==gov_name1[j]){
-        test3[i,"gov"] <- 1
-        break
-      } else {
-        test3[i,"gov"] <- 0
+matching <- function(data){
+  dataframe <- as.data.frame(data)
+  for(i in 1:nrow(dataframe)){
+    if(nchar(dataframe[i,2])<=3){
+      for(j in seq_along(gov_name1)){
+        if(dataframe[i,2]==gov_name1[j]){
+          dataframe[i,"gov"] <- 1
+          break
+        } else {
+          dataframe[i,"gov"] <- 0
+        }
       }
-    }
-  } else if(nchar(test3[i, 3]>=4 & nchar(test3[i,3])<=6)){
-    for(k in seq_along(gov_name2)){
-      if(test3[i,3]==gov_name2[k]){
-        test3[i,"gov"] <- 1
-        break
-      } else {
-        test3[i, "gov"] <- 0
+    } else if(nchar(dataframe[i, 2]>=4 & nchar(dataframe[i,2])<=6)){
+      for(k in seq_along(gov_name2)){
+        if(dataframe[i,2]==gov_name2[k]){
+          dataframe[i,"gov"] <- 1
+          break
+        } else {
+          dataframe[i,"gov"] <- 0
+        }
       }
-    }
-  } else if(nchar(test3[i,3])>=7){
-    for(p in seq_along(gov_name3)){
-      if(test3[i,3]==gov_name3[p]){
-        test3[i,"gov"] <- 1
-        break
-      } else {
-        test3[i, "gov"] <- 0
+    } else if(nchar(dataframe[i,2])>=7){
+      for(p in seq_along(gov_name3)){
+        if(dataframe[i,2]==gov_name3[p]){
+          dataframe[i,"gov"] <- 1
+          break
+        } else {
+          dataframe[i,"gov"] <- 0
+        }
       }
     }
   }
-})
+  path <- "D:/Angela/TEJ/gov_name/"
+  csv <- ".csv"
+  write.csv(dataframe, paste0(path,names(data),csv))
+}
 
 
-save.image()
+for(e in 1:200){
+  matching(data = test4[e])
+}
 
+## 效率中等: 6小時
 
+# 方法3：
+# 用melt()融化後merge()
+gov_name$gov <- 1
+names(test3)[3] <- "gov_name"
+test5 <- merge(test3, gov_name, by="gov_name", all = F)
+test5 <- test5[,-1]
+test5 <- test5[!duplicated(test5),]
+b_melt_2 <- merge(b_melt_2, test5, by="index", all.x = T)
+write.csv(b_melt_2, "D:/Angela/TEJ/b_melt_2.csv", na="")
+b_melt_2[is.na(b_melt_2$gov),"gov"] <- 0
+## 效率最快: 幾秒鐘
