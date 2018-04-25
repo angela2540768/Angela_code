@@ -5,23 +5,23 @@ KPI_weekly <- function(KPI){
   KPI$stop <- as.Date(KPI$stop, format="%Y-%m-%d")
   KPI$total_day <- as.numeric((KPI$stop - KPI$start) + 1)
   KPI$month_1 <- as.numeric(ifelse(KPI$stop<=as.Date("2018-01-31", format="%Y-%m-%d"), (KPI$stop-KPI$start)+1,
-                                       ifelse(KPI$start<=as.Date("2018-01-31", format="%Y-%m-%d") & KPI$stop>=as.Date("2018-01-01", format="%Y-%m-%d"),(as.Date("2018-01-31", format="%Y-%m-%d")-KPI$start)+1, 0))) 
+                                   ifelse(KPI$start<=as.Date("2018-01-31", format="%Y-%m-%d") & KPI$stop>=as.Date("2018-01-01", format="%Y-%m-%d"),(as.Date("2018-01-31", format="%Y-%m-%d")-KPI$start)+1, 0))) 
   KPI$month_2 <- as.numeric(ifelse(KPI$start<=as.Date("2018-02-28", format="%Y-%m-%d")&KPI$stop>=as.Date("2018-02-01", format="%Y-%m-%d"),
-                                       ifelse(KPI$stop<=as.Date("2018-02-28", format="%Y-%m-%d"), 
-                                              KPI$total_day-(KPI$month_1), 
-                                              as.Date("2018-02-28", format="%Y-%m-%d")-KPI$start+1-(KPI$month_1)),0))
+                                   ifelse(KPI$stop<=as.Date("2018-02-28", format="%Y-%m-%d"), 
+                                          KPI$total_day-(KPI$month_1), 
+                                          as.Date("2018-02-28", format="%Y-%m-%d")-KPI$start+1-(KPI$month_1)),0))
   KPI$month_3 <- as.numeric(ifelse(KPI$start<=as.Date("2018-03-31", format="%Y-%m-%d")&KPI$stop>=as.Date("2018-03-01", format="%Y-%m-%d"),
-                                       ifelse(KPI$stop<=as.Date("2018-03-31", format="%Y-%m-%d"), 
-                                              KPI$total_day-(KPI$month_1+KPI$month_2), 
-                                              as.Date("2018-03-31", format="%Y-%m-%d")-KPI$start+1-(KPI$month_1+KPI$month_2)),0))
+                                   ifelse(KPI$stop<=as.Date("2018-03-31", format="%Y-%m-%d"), 
+                                          KPI$total_day-(KPI$month_1+KPI$month_2), 
+                                          as.Date("2018-03-31", format="%Y-%m-%d")-KPI$start+1-(KPI$month_1+KPI$month_2)),0))
   KPI$month_4 <- as.numeric(ifelse(KPI$start<=as.Date("2018-04-30", format="%Y-%m-%d")&KPI$stop>=as.Date("2018-04-01", format="%Y-%m-%d"),
-                                       ifelse(KPI$stop<=as.Date("2018-04-30", format="%Y-%m-%d"), 
-                                              KPI$total_day-(KPI$month_1+KPI$month_2+KPI$month_3), 
-                                              as.Date("2018-04-30", format="%Y-%m-%d")-KPI$start+1-(KPI$month_1+KPI$month_2+KPI$month_3)),0))
+                                   ifelse(KPI$stop<=as.Date("2018-04-30", format="%Y-%m-%d"), 
+                                          KPI$total_day-(KPI$month_1+KPI$month_2+KPI$month_3), 
+                                          as.Date("2018-04-30", format="%Y-%m-%d")-KPI$start+1-(KPI$month_1+KPI$month_2+KPI$month_3)),0))
   KPI$month_5 <- as.numeric(ifelse(KPI$start<=as.Date("2018-05-31", format="%Y-%m-%d")&KPI$stop>=as.Date("2018-05-01", format="%Y-%m-%d"),
-                                       ifelse(KPI$stop<=as.Date("2018-05-31", format="%Y-%m-%d"), 
-                                              KPI$total_day-(KPI$month_1+KPI$month_2+KPI$month_3+KPI$month_4), 
-                                              as.Date("2018-05-31", format="%Y-%m-%d")-KPI$start+1-(KPI$month_1+KPI$month_2+KPI$month_3+KPI$month_4)),0))
+                                   ifelse(KPI$stop<=as.Date("2018-05-31", format="%Y-%m-%d"), 
+                                          KPI$total_day-(KPI$month_1+KPI$month_2+KPI$month_3+KPI$month_4), 
+                                          as.Date("2018-05-31", format="%Y-%m-%d")-KPI$start+1-(KPI$month_1+KPI$month_2+KPI$month_3+KPI$month_4)),0))
   KPI$month_6 <- as.numeric(ifelse(KPI$start<=as.Date("2018-06-30", format="%Y-%m-%d")&KPI$stop>=as.Date("2018-06-01", format="%Y-%m-%d"),
                                    ifelse(KPI$stop<=as.Date("2018-06-30", format="%Y-%m-%d"), 
                                           KPI$total_day-(KPI$month_1+KPI$month_2+KPI$month_3+KPI$month_4+KPI$month_5), 
@@ -39,9 +39,9 @@ KPI_weekly <- function(KPI){
                                           KPI$total_day-(KPI$month_1+KPI$month_2+KPI$month_3+KPI$month_4+KPI$month_5+KPI$month_6+KPI$month_7+KPI$month_8), 
                                           as.Date("2018-09-30", format="%Y-%m-%d")-KPI$start+1-(KPI$month_1+KPI$month_2+KPI$month_3+KPI$month_4+KPI$month_5+KPI$month_6+KPI$month_7+KPI$month_8)),0))
   KPI$month_10 <- as.numeric(ifelse(KPI$start<=as.Date("2018-10-31", format="%Y-%m-%d")&KPI$stop>=as.Date("2018-10-01", format="%Y-%m-%d"),
-                                   ifelse(KPI$stop<=as.Date("2018-10-31", format="%Y-%m-%d"), 
-                                          KPI$total_day-(KPI$month_1+KPI$month_2+KPI$month_3+KPI$month_4+KPI$month_5+KPI$month_6+KPI$month_7+KPI$month_8+KPI$month_9), 
-                                          as.Date("2018-10-31", format="%Y-%m-%d")-KPI$start+1-(KPI$month_1+KPI$month_2+KPI$month_3+KPI$month_4+KPI$month_5+KPI$month_6+KPI$month_7+KPI$month_8+KPI$month_9)),0))
+                                    ifelse(KPI$stop<=as.Date("2018-10-31", format="%Y-%m-%d"), 
+                                           KPI$total_day-(KPI$month_1+KPI$month_2+KPI$month_3+KPI$month_4+KPI$month_5+KPI$month_6+KPI$month_7+KPI$month_8+KPI$month_9), 
+                                           as.Date("2018-10-31", format="%Y-%m-%d")-KPI$start+1-(KPI$month_1+KPI$month_2+KPI$month_3+KPI$month_4+KPI$month_5+KPI$month_6+KPI$month_7+KPI$month_8+KPI$month_9)),0))
   KPI$month_11 <- as.numeric(ifelse(KPI$start<=as.Date("2018-11-30", format="%Y-%m-%d")&KPI$stop>=as.Date("2018-11-01", format="%Y-%m-%d"),
                                     ifelse(KPI$stop<=as.Date("2018-11-30", format="%Y-%m-%d"), 
                                            KPI$total_day-(KPI$month_1+KPI$month_2+KPI$month_3+KPI$month_4+KPI$month_5+KPI$month_6+KPI$month_7+KPI$month_8+KPI$month_9+KPI$month_10), 
@@ -50,8 +50,10 @@ KPI_weekly <- function(KPI){
                                     ifelse(KPI$stop<=as.Date("2018-12-31", format="%Y-%m-%d"), 
                                            KPI$total_day-(KPI$month_1+KPI$month_2+KPI$month_3+KPI$month_4+KPI$month_5+KPI$month_6+KPI$month_7+KPI$month_8+KPI$month_9+KPI$month_10+KPI$month_11), 
                                            as.Date("2018-12-31", format="%Y-%m-%d")-KPI$start+1-(KPI$month_1+KPI$month_2+KPI$month_3+KPI$month_4+KPI$month_5+KPI$month_6+KPI$month_7+KPI$month_8+KPI$month_9+KPI$month_10+KPI$month_11)),0))
+  KPI$year <- as.integer(substr(KPI$month, start = 1, stop = 3))
   #return(KPI)
-
+  KPI <- KPI[KPI$year==107,]
+  
   #KPI <- ifelse(KPI$month_1+KPI$month_2+KPI$month_3+KPI$month_4+KPI$month_5+KPI$month_6+KPI$month_7+KPI$month_8+KPI$month_9+KPI$month_10+KPI$month_11+KPI$month_12==KPI$total_day, KPI, stop("date calculation is wrong!"))
   each_month <- KPI[,16:27]
   
@@ -61,7 +63,7 @@ KPI_weekly <- function(KPI){
       each_month[j,i] <- ifelse(KPI[j,"month_m"] == i, each_month[j,i]+KPI[j,"money_making"], each_month[j,i])
     }
   }
-
+  
   each_month$status <- KPI$status
   
   each_month_money <- matrix(data = 0, nrow = 6, ncol = 12)
@@ -86,8 +88,9 @@ KPI_weekly <- function(KPI){
 ## import multiple files ##
 
 getwd()
-setwd("/Users/huangguanwen/Desktop/i-TRUE/KPI_weekly/all")
-file.list <- list.files(path = "/Users/huangguanwen/Desktop/i-TRUE/KPI_weekly/all", pattern = "*.xls")
+setwd("D:/Job/R/KPI_weekly/KPI_weekly")
+file.list <- list.files(path = "D:/Job/R/KPI_weekly/KPI_weekly", pattern = "*.xls")
+library(readxl)
 df.list <- lapply(file.list, read_excel, col_types = c("numeric", 
                                                        "numeric", "text", "date", "date", "text", 
                                                        "text", "text", "numeric", "text", "numeric", 
@@ -99,6 +102,3 @@ BFC <- all_result[[3]]
 BSA <- all_result[[4]]
 CI <- all_result[[5]]
 VIP <- all_result[[6]]
-
-
-
