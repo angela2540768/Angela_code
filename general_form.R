@@ -49,3 +49,39 @@ cate_product <- function(condition,dataname){
 condition <- month_PV2018$third==138
 dataname <- "rank138.csv"
 cate_product(condition,dataname) # 成功!!
+
+# 屬性通路分析
+channel_2018 <- month_PV2018_1[!is.na(month_PV2018_1$channel),]
+for(i in 1:227627){
+  if(channel_2018[i,"channel"]==1){
+    channel_2018[i,"c_name"] <- "專櫃"
+  } else if (channel_2018[i,"channel"]==2){
+    channel_2018[i,"c_name"] <- "開架"
+  } else if (channel_2018[i,"channel"]==3){
+    channel_2018[i,"c_name"] <- "其他"
+  } else if (channel_2018[i,"channel"]==4){
+    channel_2018[i,"c_name"] <- "專賣店"
+  } else if (channel_2018[i,"channel"]==5){
+    channel_2018[i,"c_name"] <- "網路"
+  } else if (channel_2018[i,"channel"]==6){
+    channel_2018[i,"c_name"] <- "醫療通路"
+  }
+}
+
+
+channel <- function(condition,dataname){
+  channel_2018 <- channel_2018[!is.na(channel_2018$product_id),]
+  trend_data <- channel_2018[condition,]
+  trend_data <- trend_data[!is.na(trend_data$product_id),]
+  trend_data <- ddply(trend_data, .(c_name), summarize, pv_sum=sum(PV_month))
+  trend_data$per <- round(trend_data$pv_sum/sum(trend_data$pv_sum, na.rm = T),4)
+  trend_data <- trend_data[with(trend_data,order(per, decreasing = T)),]
+  write.csv(trend_data, dataname, row.names = F)
+}
+
+for(i in rank){
+  condition <- channel_2018$third==i
+  dataname <- paste0("channel/c_",as.character(i),".csv")
+  channel(condition, dataname)
+}
+
